@@ -176,14 +176,7 @@ class BaseDocument(object):
                 setattr(self, k, data[k])
         if '_fields_ordered' in data:
             _super_fields_ordered = type(self)._fields_ordered
-            _fields_ordered = data['_fields_ordered']
-            # Add new fields to the existing Document instance
-            for field in _super_fields_ordered:
-                if field not in _fields_ordered:
-                    _fields_ordered += (field, )
-
-            setattr(self, '_fields_ordered', _fields_ordered)
-
+            setattr(self, '_fields_ordered', _super_fields_ordered)
 
         dynamic_fields = data.get('_dynamic_fields') or SON()
         for k in dynamic_fields.keys():
